@@ -10,5 +10,5 @@ import java.util.List;
 public interface FavoritoRepository extends JpaRepository<Favorito, Long> {
     Favorito findById(long id);
 
-    List<Favorito> findById(long id);
+    List<Favorito> findAllById(long id);
 }

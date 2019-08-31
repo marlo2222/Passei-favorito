@@ -36,7 +36,7 @@ public class FavoritoController {
     @ApiOperation(value = "retorna uma lista com os favoritos de um aluno")
     public ResponseEntity<List<Favorito>> listarFavoritosIdUsuario(@PathVariable("id") long id){
         List<Favorito> favoritos = favoritoRepository.findAllById(id);
-        return ResponseEntity<List<Favorito>>("Lista de alunos", HttpStatus.OK);
+        return new ResponseEntity<List<Favorito>>(favoritos, HttpStatus.OK);
     }
 
     @GetMapping(value = "/favorito/listar/{id}")
