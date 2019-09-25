@@ -16,7 +16,6 @@ public class Favorito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "favorito_id")
-    @JsonIgnore
     private long id;
 
     @Column(name = "id_aluno", nullable = false)

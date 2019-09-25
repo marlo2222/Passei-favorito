@@ -2,6 +2,7 @@ package com.api.favorito.controller;
 
 import com.api.favorito.model.Favorito;
 import com.api.favorito.repository.FavoritoRepository;
+import com.api.favorito.services.FavoritoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,54 +19,47 @@ import java.util.List;
 public class FavoritoController {
 
     @Autowired
-    FavoritoRepository favoritoRepository;
+    FavoritoService favoritoService;
 
     @GetMapping(value = "/")
     public String home(){
         return "pagina inicial";
     }
 
-    @GetMapping(value = "/favorito/listar")
+    @GetMapping(value = "/favorito")
     @ApiOperation(value = "retorna uma lista de favoritos")
-    public ResponseEntity<List<Favorito>> listarFavoritos(){
-        List<Favorito> favoritos = favoritoRepository.findAll();
-        return new ResponseEntity<List<Favorito>>(favoritos, HttpStatus.OK);
+    public ResponseEntity<?> listarFavoritos(){
+        return favoritoService.listar();
     }
 
-    @GetMapping(value = "/favorito/listarUsuario/{id}")
+    @GetMapping(value = "/favorito/usuario/{id}")
     @ApiOperation(value = "retorna uma lista com os favoritos de um aluno")
-    public ResponseEntity<List<Favorito>> listarFavoritosIdUsuario(@PathVariable("id") long id){
-        List<Favorito> favoritos = favoritoRepository.findAllById(id);
-        return new ResponseEntity<List<Favorito>>(favoritos, HttpStatus.OK);
+    public ResponseEntity<?> listarFavoritosIdUsuario(@PathVariable("id") long id){
+        return favoritoService.listarIdUsuario(id);
     }
 
-    @GetMapping(value = "/favorito/listar/{id}")
+    @GetMapping(value = "/favorito/{id}")
     @ApiOperation(value = "retorna um favorito pelo id")
-    public ResponseEntity<Favorito> listaFavoritoId(@PathVariable("id") long id){
-        Favorito favorito = favoritoRepository.findById(id);
-        return  new ResponseEntity<Favorito>(favorito, HttpStatus.OK);
+    public ResponseEntity<?> listaFavoritoId(@PathVariable("id") long id){
+        return favoritoService.listarId(id);
     }
 
-    @PostMapping(value = "/favorito/salvar")
+    @PostMapping(value = "/favorito")
     @ApiOperation(value = "Salva um favorito")
-    public ResponseEntity<String> salvarFavorito(@RequestBody Favorito favorito){
-        favoritoRepository.save(favorito);
-        return new ResponseEntity<>("Favorito salvo com sucesso", HttpStatus.OK);
-
+    public ResponseEntity<?> salvarFavorito(@RequestBody Favorito favorito){
+        return favoritoService.salvar(favorito);
     }
 
-    @DeleteMapping(value = "/favorito/deletar/{id}")
+    @DeleteMapping(value = "/favorito/{id}")
     @ApiOperation(value = "Deleta um favorito")
-    public ResponseEntity<String> deletarFavorito(@PathVariable("id") long id){
-        favoritoRepository.deleteById(id);
-        return new ResponseEntity<String>("Deletado com sucesso", HttpStatus.OK);
+    public ResponseEntity<?> deletarFavorito(@PathVariable("id") long id){
+        return favoritoService.deletarId(id);
     }
 
-    @PutMapping(value = "/favorito/atualizar")
+    @PutMapping(value = "/favorito")
     @ApiOperation(value = "Atualiza um favorito")
-    public ResponseEntity<String> atualizarFavorito(@RequestBody Favorito favorito){
-        favoritoRepository.save(favorito);
-        return new ResponseEntity<String>("Atualizado com sucesso", HttpStatus.OK);
+    public ResponseEntity<?> atualizarFavorito(@RequestBody Favorito favorito){
+        return favoritoService.atualizar(favorito);
     }
 
 }
