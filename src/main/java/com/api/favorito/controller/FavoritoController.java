@@ -1,17 +1,13 @@
 package com.api.favorito.controller;
 
 import com.api.favorito.model.Favorito;
-import com.api.favorito.repository.FavoritoRepository;
 import com.api.favorito.services.FavoritoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -46,8 +42,8 @@ public class FavoritoController {
 
     @PostMapping(value = "/favorito")
     @ApiOperation(value = "Salva um favorito")
-    public ResponseEntity<?> salvarFavorito(@RequestBody Favorito favorito){
-        return favoritoService.salvar(favorito);
+    public ResponseEntity<?> salvarFavorito(@RequestParam("file") long idDocumento, @RequestParam("usuario") long idAluno){
+        return favoritoService.salvar(idDocumento, idAluno);
     }
 
     @DeleteMapping(value = "/favorito/{id}")

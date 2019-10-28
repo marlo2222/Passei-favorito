@@ -1,5 +1,7 @@
 package com.api.favorito.services;
 
+import java.util.List;
+
 import com.api.favorito.model.Favorito;
 import com.api.favorito.repository.FavoritoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,17 @@ public class FavoritoService {
     public ResponseEntity<?> listarId(long id){
         return new ResponseEntity<>(favoritoRepository.findById(id), HttpStatus.OK);
     }
-    public ResponseEntity<?> salvar(Favorito favorito){
+    public ResponseEntity<?> salvar(long idDocumento, long usuario){
+        //Favorito favorito = favoritoRepository.findByUserFile(usuario, idDocumento);
+        List<Favorito> f = favoritoRepository.findAllById(usuario);
+        for (Favorito fAux : f) {
+            if(fAux.getIdDocumento() == idDocumento)
+                return new ResponseEntity<>("Já possui esse arquivo como favorito", HttpStatus.NO_CONTENT);
+             
+        }
+        Favorito favorito = new Favorito();
+        favorito.setIdAluno(usuario);
+        favorito.setIdDocumento(idDocumento);
         favoritoRepository.save(favorito);
         return new ResponseEntity<>("salvo com sucesso", HttpStatus.CREATED);
     }
