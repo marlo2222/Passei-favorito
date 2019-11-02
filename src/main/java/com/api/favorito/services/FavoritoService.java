@@ -25,7 +25,7 @@ public class FavoritoService {
     public ResponseEntity<?> listarId(long id){
         return new ResponseEntity<>(favoritoRepository.findById(id), HttpStatus.OK);
     }
-    public ResponseEntity<?> salvar(long idDocumento, long usuario){
+    public ResponseEntity<?> salvar(long idDocumento, long usuario, long donoDocumento){
         //Favorito favorito = favoritoRepository.findByUserFile(usuario, idDocumento);
         List<Favorito> f = favoritoRepository.findAllById(usuario);
         for (Favorito fAux : f) {
@@ -33,9 +33,8 @@ public class FavoritoService {
                 return new ResponseEntity<>("Já possui esse arquivo como favorito", HttpStatus.NO_CONTENT);
              
         }
-        Favorito favorito = new Favorito();
-        favorito.setIdAluno(usuario);
-        favorito.setIdDocumento(idDocumento);
+        Favorito favorito = new Favorito(idDocumento, usuario, donoDocumento);
+
         favoritoRepository.save(favorito);
         return new ResponseEntity<>("salvo com sucesso", HttpStatus.CREATED);
     }
@@ -46,5 +45,12 @@ public class FavoritoService {
     public ResponseEntity<?> atualizar(Favorito favorito){
         favoritoRepository.save(favorito);
         return new ResponseEntity<>("atualizado com sucesso", HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> favoritosDonoArquivo(long idDonoArquivo){
+        long quantidade = favoritoRepository.countByIdDonoDocumento(idDonoArquivo);
+        if(quantidade > 0)
+            return new ResponseEntity<>(quantidade, HttpStatus.OK);
+        return new ResponseEntity<>(0, HttpStatus.NO_CONTENT);
     }
 }

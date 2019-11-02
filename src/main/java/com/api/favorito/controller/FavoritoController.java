@@ -42,8 +42,8 @@ public class FavoritoController {
 
     @PostMapping(value = "/favorito")
     @ApiOperation(value = "Salva um favorito")
-    public ResponseEntity<?> salvarFavorito(@RequestParam("file") long idDocumento, @RequestParam("usuario") long idAluno){
-        return favoritoService.salvar(idDocumento, idAluno);
+    public ResponseEntity<?> salvarFavorito(@RequestParam("file") long idDocumento, @RequestParam("usuario") long idAluno, @RequestParam("donoArquivo") long donoArquivo){
+        return favoritoService.salvar(idDocumento, idAluno, donoArquivo);
     }
 
     @DeleteMapping(value = "/favorito/{id}")
@@ -56,6 +56,11 @@ public class FavoritoController {
     @ApiOperation(value = "Atualiza um favorito")
     public ResponseEntity<?> atualizarFavorito(@RequestBody Favorito favorito){
         return favoritoService.atualizar(favorito);
+    }
+
+    @GetMapping("/favorito/listar/{id}")
+    public ResponseEntity<?> favoritosDonoDocumento(@PathVariable("id") long idDonoDocumento){
+        return favoritoService.favoritosDonoArquivo(idDonoDocumento);
     }
 
 }
