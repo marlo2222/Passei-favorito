@@ -17,5 +17,5 @@ public interface FavoritoRepository extends JpaRepository<Favorito, Long> {
     @Query("SELECT f FROM Favorito f WHERE f.idAluno = :idPassado")
     List<Favorito> findAllById(@Param("idPassado") long id);
 
-    long countByIdDonoDocumento(long idDonoDocumento);
+    int countByIdDonoDocumento(long idDonoDocumento);
 }

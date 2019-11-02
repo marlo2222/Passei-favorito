@@ -48,9 +48,13 @@ public class FavoritoService {
     }
 
     public ResponseEntity<?> favoritosDonoArquivo(long idDonoArquivo){
-        long quantidade = favoritoRepository.countByIdDonoDocumento(idDonoArquivo);
+        int quantidade = favoritoRepository.countByIdDonoDocumento(idDonoArquivo);
+        System.out.println(quantidade);
         if(quantidade > 0)
             return new ResponseEntity<>(quantidade, HttpStatus.OK);
-        return new ResponseEntity<>(0, HttpStatus.NO_CONTENT);
-    }
+    
+        quantidade = 0;
+        return new ResponseEntity<>(quantidade, HttpStatus.NO_CONTENT);
+        }      
+        
 }
