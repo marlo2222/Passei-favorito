@@ -40,7 +40,7 @@ public class FavoritoController {
         return favoritoService.listarId(id);
     }
 
-    @PostMapping(value = "/favorito")
+    @PostMapping(value = "/favorito/")
     @ApiOperation(value = "Salva um favorito")
     public ResponseEntity<?> salvarFavorito(@RequestParam("file") long idDocumento, @RequestParam("usuario") long idAluno, @RequestParam("donoArquivo") long donoArquivo){
         return favoritoService.salvar(idDocumento, idAluno, donoArquivo);
