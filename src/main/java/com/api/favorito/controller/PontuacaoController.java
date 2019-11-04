@@ -32,7 +32,7 @@ public class PontuacaoController {
         return pontuacaoService.adicionarPontos(usuario, pontos);
     }
 
-    @GetMapping("/pontuacao/{id}")
+    @DeleteMapping("/pontuacao/{id}")
     @ApiOperation(value = "remover pontos pelo id")
     public ResponseEntity<?> removerPontuacao(@PathVariable("id") long id){
         return pontuacaoService.removerPontuacao(id);
