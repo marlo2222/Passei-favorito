@@ -15,6 +15,12 @@ public class PontuacaoController {
     @Autowired
     PontuacaoService pontuacaoService;
 
+    @GetMapping("/pontos")
+    @ApiOperation(value = "listar todas os pontos")
+    public ResponseEntity<?> listarPontos(){
+        return pontuacaoService.listarPontos();
+    }
+
     @GetMapping("/pontuacao/{id}")
     @ApiOperation(value = "retorna a pontuacao de um usuario")
     public ResponseEntity<?> pontosUsuario(@PathVariable("id") long idUsuario){
@@ -25,6 +31,14 @@ public class PontuacaoController {
     public ResponseEntity<?> adicionarPontos(@RequestParam("usuario") long usuario, @RequestParam("pontos") long pontos){
         return pontuacaoService.adicionarPontos(usuario, pontos);
     }
+
+    @GetMapping("/pontuacao/{id}")
+    @ApiOperation(value = "remover pontos pelo id")
+    public ResponseEntity<?> removerPontuacao(@PathVariable("id") long id){
+        return pontuacaoService.removerPontuacao(id);
+    }
+
+
 
 
 }

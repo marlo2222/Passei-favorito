@@ -15,6 +15,10 @@ public class PontuacaoService {
     @Autowired
     PontuacaoRepository pontuacaoRepository;
 
+    public ResponseEntity<?> listarPontos(){
+        return new ResponseEntity<>(pontuacaoRepository.findAll(), HttpStatus.OK);
+    }
+
     public ResponseEntity<?> adicionarPontos(long usuario, long pontos){
         Pontuacao pontuacao = new Pontuacao(usuario, pontos);
         return new ResponseEntity<>(pontuacaoRepository.save(pontuacao), HttpStatus.CREATED);
@@ -32,4 +36,10 @@ public class PontuacaoService {
             return new ResponseEntity<>(valor, HttpStatus.OK);
         }
     }
+
+    public ResponseEntity<?> removerPontuacao(long id){
+        pontuacaoRepository.deleteById(id);
+        return new ResponseEntity<>("removido com sucesso", HttpStatus.NO_CONTENT);
+    }
+
 }
