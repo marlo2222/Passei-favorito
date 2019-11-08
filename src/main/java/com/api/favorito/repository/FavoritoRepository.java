@@ -18,4 +18,8 @@ public interface FavoritoRepository extends JpaRepository<Favorito, Long> {
     List<Favorito> findAllById(@Param("idPassado") long id);
 
     int countByIdDonoDocumento(long idDonoDocumento);
+
+    List<Favorito> findAllByIdDocumento(long idDocumento);
+
+
 }

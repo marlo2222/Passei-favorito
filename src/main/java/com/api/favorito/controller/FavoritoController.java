@@ -52,6 +52,12 @@ public class FavoritoController {
         return favoritoService.deletarId(id);
     }
 
+    @DeleteMapping("/favorito/deletar/{id}")
+    @ApiOperation(value = "Deleta os favoritos baseados em um id de documento")
+    public ResponseEntity<?> deletarFavoritosId(@PathVariable("id") long id){
+        return favoritoService.deletar(id);
+    }
+
     @PutMapping(value = "/favorito")
     @ApiOperation(value = "Atualiza um favorito")
     public ResponseEntity<?> atualizarFavorito(@RequestBody Favorito favorito){
