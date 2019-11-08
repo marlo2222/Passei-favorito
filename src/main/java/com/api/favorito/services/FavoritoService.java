@@ -44,8 +44,10 @@ public class FavoritoService {
     }
     public ResponseEntity<?> deletar(long id){
         List<Favorito> favoritos = favoritoRepository.findAllByIdDocumento(id);
-        for (Favorito favorito: favoritos) {
-            favoritoRepository.deleteById(favorito.getId());
+        if (favoritos != null){
+            for (Favorito favorito: favoritos) {
+                favoritoRepository.deleteById(favorito.getId());
+            }
         }
         return new ResponseEntity<>("deletado com sucesso", HttpStatus.NO_CONTENT);
     }
